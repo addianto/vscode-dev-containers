@@ -3,7 +3,7 @@
 # Licensed under the MIT License. See https://go.microsoft.com/fwlink/?linkid=2090316 for license information.
 #-------------------------------------------------------------------------------------------------------------
 
-FROM debian:9
+FROM python:3.8
 
 # Avoid warnings by switching to noninteractive
 ENV DEBIAN_FRONTEND=noninteractive
@@ -26,10 +26,7 @@ RUN apt-get update \
     #
     # Install latest release of ansible via Ubuntu's PPA repository
     # See: https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html
-    && echo "deb http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main" >> /etc/apt/sources.list.d/ansible.list \
-    && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367 \
-    && apt-get update \
-    && apt-get -y install ansible \
+    && pip install --no-cache-dir ansible ansible-lint \
     #
     # Create a non-root user to use if preferred - see https://aka.ms/vscode-remote/containers/non-root-user.
     && groupadd --gid $USER_GID $USERNAME \
